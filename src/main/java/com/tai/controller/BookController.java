@@ -25,7 +25,7 @@ public class BookController {
 	
 	@RequestMapping(path="/getStudent")
 	public ResponseEntity<Student> getStudent() {
-		Student s  = new Student("a",1);
+		Student s  = new Student("Tai",30);
 		return new ResponseEntity<Student>(s, HttpStatus.OK);
 	}
 	
