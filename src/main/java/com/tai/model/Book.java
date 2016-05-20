@@ -3,12 +3,32 @@ package com.tai.model;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="book")
 public class Book {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@Column(name="bookname")
 	private String bookName;
+	
+	@Column(name="bookprice")
 	private BigDecimal bookPrice;
+	
+	@Column(name="bookimage")
 	private String bookImage;
+	
+	@Column(name="createtime")
 	private Calendar createTime;
 	
 	public boolean hasImage(){
