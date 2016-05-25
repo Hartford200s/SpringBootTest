@@ -25,8 +25,33 @@ public class BookController {
 		return new ResponseEntity<Book>(book, HttpStatus.OK);
 	}
 	
+	/**
+	 * {
+		"bookName": "TaiTestBook",
+		"bookPrice": 100,
+		"bookImage": "test123.img"
+		}
+	 * @param book
+	 * @return
+	 */
 	@RequestMapping(path="/book", method=RequestMethod.POST)
 	public ResponseEntity<Book> book(@RequestBody Book book) {
+		return new ResponseEntity<Book>(book, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path="/saveBook", method=RequestMethod.POST)
+	public ResponseEntity<Book> saveBook(@RequestBody Book book) {
+		bookRespositroy.save(book);
+		return new ResponseEntity<Book>(book, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path="/updateBook/{id}", method=RequestMethod.POST)
+	public ResponseEntity<Book> saveBook(@RequestBody Book book, @PathVariable Long id) {
+		Book dbBook = bookRespositroy.findOne(id);
+		dbBook.setBookName(book.getBookName());
+		dbBook.setBookPrice(book.getBookPrice());
+		dbBook.setBookImage(book.getBookImage());
+		bookRespositroy.save(dbBook);
 		return new ResponseEntity<Book>(book, HttpStatus.OK);
 	}
 	
