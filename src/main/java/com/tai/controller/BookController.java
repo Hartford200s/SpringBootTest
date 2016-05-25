@@ -1,5 +1,8 @@
 package com.tai.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,23 @@ public class BookController {
 		return new ResponseEntity<Book>(book, HttpStatus.OK);
 	}
 	
+	@RequestMapping("/getBookByName/{name}")
+	public ResponseEntity<List<Book>> getBookByName(@PathVariable String name) {
+		List<Book> bookList = bookRespositroy.findByBookName(name);
+		return new ResponseEntity<List<Book>>(bookList, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/getBookPrice/{bookPrice}")
+	public ResponseEntity<List<Book>> getBookPrice(@PathVariable BigDecimal bookPrice) {
+		List<Book> bookList = bookRespositroy.findByBookPrice(bookPrice);
+		return new ResponseEntity<List<Book>>(bookList, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/deleteByBookName/{name}")
+	public ResponseEntity<Long> deleteByBookName(@PathVariable String name) {
+		Long delCount = bookRespositroy.deleteByBookName(name);
+		return new ResponseEntity<Long>(delCount, HttpStatus.OK);
+	}
 	/**
 	 * {
 		"bookName": "TaiTestBook",
@@ -53,12 +73,6 @@ public class BookController {
 		dbBook.setBookImage(book.getBookImage());
 		bookRespositroy.save(dbBook);
 		return new ResponseEntity<Book>(book, HttpStatus.OK);
-	}
-	
-	@RequestMapping(path="/getStudent")
-	public ResponseEntity<Student> getStudent() {
-		Student s  = new Student("Tai",30);
-		return new ResponseEntity<Student>(s, HttpStatus.OK);
 	}
 	
 	@RequestMapping(path="/student", method=RequestMethod.POST)
